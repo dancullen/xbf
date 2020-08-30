@@ -1,21 +1,24 @@
 # Demo: An example project
 
-This directory contains an example of how to set up a new project that uses this library.
+This directory demonstrates how to set up a project that uses the xbf library.
 
-To see this example fully working, this checks out. Yes it's recursive, but bear in mind that
-for a real project, you'd really be doing this from a separate repo, outside of the xbf project.
+## Getting Started
 
-To get started, simply type 'make deps'. This downloads xbf and sets up the virtual environment.
+To get started, simply type `make bootstrap` then `make deps`.
+This downloads xbf and sets up the virtual environment.
 
+Note that this clones a copy of the `xbf` repo into its `deps` folder. Yes it seems
+a bit meta / recursive,  but it's more illustrative of how you'd be doing this in a
+real project-- i.e., from a separate repo, outside the xbf project.
 
-# Technical Details
+## Technical Details
 
 To prevent errors when running Make before downloading the xbf dependency, you must do the following:
 
 - Make the "-include" statement optional by prefixing it with a "-".
 
 - Invoke targets from Makefile.inc directly via "$(MAKE") rather than listing them than as dependencies
-  of targets in this Makefile (e.g., can't do "unittesT: test"; instead use "unittest:\n\t@$(MAKE) test").
+  of targets in this Makefile (e.g., can't do "unittest: test"; instead use "unittest:\n\t@$(MAKE) test").
 
 These tricks allow us to bootstrap our dev environment using this Makefile rather than a separate shell script.
 

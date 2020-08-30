@@ -1,12 +1,26 @@
-"""
-test.py contains unit tests.
-"""
+# test.py contains unit tests.
 
 import sys
 import unittest
 
 from xbf.upython.core import ButtonBuffer
 from xbf.upython.core import sequence_equal_or_more_recent, sequence_more_recent, MAX_SEQUENCE_NUMBER
+
+# Your app would typically use the path 'xbf.cpython.core' to import these from the deps dir,
+# but since we're already inside the 'xbf' project, we can import relative to this project's
+# top-level dir (not deps), so we omit the 'xbf' below.
+from xbf.cpython.core import Error, Success, new_error, errorf
+
+
+class TestErrors(unittest.TestCase):
+
+    def test_errors(self):
+        my_error = new_error("hello")
+        self.assertEqual(Error, type(my_error))
+        self.assertTrue(my_error != Success)
+
+        y = errorf("blah blah %d: %s", 7, my_error)
+        self.assertEqual("test_errors: blah blah 7: test_errors: hello", y)
 
 
 class TestSequenceNumbers(unittest.TestCase):
