@@ -18,12 +18,25 @@ from digi.xbee.util.utils import disable_logger
 import mpy_cross
 import serial
 
+API_MODE_WITHOUT_ESCAPES = 0x01
+MAIN_PY = "/flash/main.py"
 
 Error = str
 Success = None
 
-API_MODE_WITHOUT_ESCAPES = 0x01
-MAIN_PY = "/flash/main.py"
+
+# new_error returns a new error, annotated with context.
+# Inspired by https://godoc.org/errors#New
+def new_error(message: str) -> Error:
+    calling_func = sys._getframe().f_back.f_code.co_name
+    return Error("%s: %s" % (calling_func, message))
+
+
+# errorf is used to wrap an existing error with details before it gets returned up the call stack.
+# Inspired by https://golang.org/pkg/fmt/#Errorf
+def errorf(format_str: str, *args) -> Error:
+    calling_func = sys._getframe().f_back.f_code.co_name
+    return Error("%s: %s" % (calling_func, format_str % args))
 
 
 # func provides context for a given line number, which helps to improve error logging. It is similar to __func__ in C.
@@ -31,22 +44,6 @@ MAIN_PY = "/flash/main.py"
 def func():
     calling_func = sys._getframe().f_back.f_code.co_name
     return calling_func
-
-
-# wrap annotates an Error with context before it gets returned back up the call stack.
-# Inspired by https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully
-def wrap_error(cause: Error, message: str = None) -> Error:
-    calling_func = sys._getframe().f_back.f_code.co_name
-    if message:
-        return "%s: %s; %s" % (calling_func, message, cause)
-    return "%s: %s" % (calling_func, cause)
-
-
-# new_error returns a new error, annotated with context.
-# Inspired by https://godoc.org/github.com/pkg/errors#New
-def new_error(message: str) -> Error:
-    calling_func = sys._getframe().f_back.f_code.co_name
-    return Error("%s: %s" % (calling_func, message))
 
 
 # log abstracts the logging so that we have the flexibility to change the sink.
