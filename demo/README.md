@@ -4,12 +4,13 @@ This directory demonstrates how to set up a project that uses the xbf library.
 
 ## Getting Started
 
-To get started, simply type `make bootstrap` then `make deps`.
-This downloads xbf and sets up the virtual environment.
+To get started, simply type `make bootstrap`. This downloads xbf and sets up the virtual environment.
 
-Note that this clones a copy of the `xbf` repo into its `deps` folder. Yes it seems
-a bit meta / recursive,  but it's more illustrative of how you'd be doing this in a
-real project-- i.e., from a separate repo, outside the xbf project.
+Note that `make bootstrap` clones a copy of the `xbf` repo into its `deps` folder.
+For the demo project, this might seem a bit recursive and silly, but pretend for
+a moment that the demo project is your own application, in a separate repo. It
+would need to clone the `xbf` repo, just like demo is doing. The demo project is
+designed to be illustrative of what you need to do in a real project in a separate repo.
 
 ## Technical Details
 

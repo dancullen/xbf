@@ -16,7 +16,7 @@ bootstrap:
 	git fetch --tags --force &&\
 	git checkout master
 
-	@$(MAKE) xbf-deps
+	@$(MAKE) deps
 
 unittest:
 	@$(MAKE) test
