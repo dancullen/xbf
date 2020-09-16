@@ -268,3 +268,10 @@ Anyway,  to tie this back into your application with the XBee 3 Cellular in “a
 
 - Unescaped API Frames are preferred. Don't use Escaped API Frames unless you have a very good reason.
 
+
+## Do NOT use XBee 3 Cellular as a TCP Listener
+
+- This says it is possible: https://www.digi.com/resources/documentation/Digidocs/90002258/#reference/r_extended_socket_example_tcp.htm
+  - But the Note on this page says it doesn't support TLS sockets.
+  
+- But we've had some customers having trouble with it. See XBCELL-6310.
