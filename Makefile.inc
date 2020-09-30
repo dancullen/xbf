@@ -21,10 +21,10 @@ $(error PYTHON3_CMD environment variable is not set)
 # Recommend "python3" in Linux or "winpty /c/Python37/python.exe" in MS Windows MSYS Git Bash.
 endif
 
-ifeq ($(OS),Windows_NT)  # MS Windows MSYS Git Bash
+ifeq ($(OS),Windows_NT) # MS Windows MSYS Git Bash
 	VENV_ACTIVATE := source $(VENVDIR)/Scripts/activate
 	PATHSEP := ;
-else  # Linux
+else # Linux
 	VENV_ACTIVATE := source $(VENVDIR)/bin/activate
 	PATHSEP := :
 endif
