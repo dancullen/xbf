@@ -115,7 +115,7 @@ Testing methodology:
 
     CPython implementations of usocket, etc. so that you can develop MicroPython with CPython.
 
-    Rather than importing with ‘socket’, import with ‘usocket’. Simlarly for utime, umachine, etc. That way, the CPython and MicroPython versiosn won’t conflict. The only standard modules that don’t let us import them with the ‘u’ prefix are ‘micropython’ and ‘gc’. ‘micropython’ isn’t a problem because CPython doesn’t have one of those. But for ‘gc’, I made a ‘upython/ugc.py’ that wraps it. That way, all of your other ‘upython/*.py’ files can import ‘ugc’ instead of ‘gc’, which allows your code to be more platform-agnostic.
+    Rather than importing with ‘socket’, import with ‘usocket’. Simlarly for utime, umachine, etc. That way, the CPython and MicroPython versions won’t conflict. The only standard modules that don’t let us import them with the ‘u’ prefix are ‘micropython’ and ‘gc’. ‘micropython’ isn’t a problem because CPython doesn’t have one of those. But for ‘gc’, I made a ‘upython/ugc.py’ that wraps it. That way, all of your other ‘upython/*.py’ files can import ‘ugc’ instead of ‘gc’, which allows your code to be more platform-agnostic.
 
     I've tried running MicroPython unit tests, but the problem is that they end up eating up too much memory and storage on the device. You only have so much for your tests.
 
@@ -275,3 +275,19 @@ Anyway,  to tie this back into your application with the XBee 3 Cellular in “a
   - But the Note on this page says it doesn't support TLS sockets.
   
 - But we've had some customers having trouble with it. See XBCELL-6310.
+
+## Encrypted Files
+
+Note: Apparently you can use the encrypted files feature to protect the MicroPython code. https://www.digi.com/resources/documentation/Digidocs/90002258/#reference/r_encrypt_files.htm
+XBees do not have secure boot, so someone could delete your code, but at least you could stop someone from reading it.
+
+
+## Running tight loops can starve connectino to DRM
+
+- https://jira.digi.com/browse/XBCELL-4616
+- https://jira.digi.com/browse/XBCELL-4608
+
+
+## Best practices for fw updates
+
+https://jira.digi.com/browse/XBPY-544 - really should exit micropython app before doing fw upgrade
